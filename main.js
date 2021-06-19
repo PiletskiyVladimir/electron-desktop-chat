@@ -1,27 +1,32 @@
 const
-    path = require('path'),
-    {app, BrowserWindow, Notification} = require('electron'),
-    isDev = !app.isPackaged;
+    {app, BrowserWindow, ipcMain} = require('electron'),
+    path = require('path');
 
-app.setAppUserModelId("CryptoGram");
+app.setName("CryptoGram");
+
+require('electron-reload')(__dirname, {
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+});
+
+let mainWindow;
 
 async function createWindow () {
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 800,
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: false,
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.resolve(app.getAppPath(), 'preload.js')
         }
     })
 
-    await win.loadFile('./index.html');
-    if (settings.type === 'DEV') win.webContents.openDevTools();
+    await win.loadFile("index.html")
 }
 
 app.whenReady().then(createWindow);
 
+// default handlers for macOS
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
@@ -30,6 +35,8 @@ app.on('window-all-closed', () => {
 
 app.on('activate', async () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-        await createWindow();
+        mainWindow = await createWindow();
     }
 })
+
+require('./electron/ipcMain')(ipcMain, mainWindow);
