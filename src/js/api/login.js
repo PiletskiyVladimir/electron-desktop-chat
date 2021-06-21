@@ -1,21 +1,9 @@
-import Axios from 'axios';
+import axios from '../utils/axios';
 
 export async function sendCodeApi (email) {
-    try {
-        let response = await Axios({
-            url: `${process.env.BACKEND_URL}/auth/send-code`,
-            method: "POST",
-            data: {
-                email: email
-            }
-        })
-
-        return response.status === 200;
-    } catch (e) {
-        return false;
-    }
+    return await axios({email}, `${process.env.BACKEND_URL}/auth/send-code`, "POST");
 }
 
-export async function getToken () {
-
+export async function getToken (email, code) {
+    return await axios({email, code}, `${process.env.BACKEND_URL}/auth`, "POST");
 }

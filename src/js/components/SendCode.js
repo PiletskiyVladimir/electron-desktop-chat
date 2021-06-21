@@ -22,10 +22,19 @@ const SendCode = observer(({store}) => {
             <button onClick={async () => {
                 let sent = await store.sendCodeStore.sendCode(store.sendCodeStore.sendCodeInputValue);
 
-                if (!sent) {
-                    store.sendCodeStore.setErrorStyle();
-                } else {
-                    history.push('/login')
+                switch (sent.status) {
+                    case 200: {
+                        history.push('/login');
+                        break;
+                    }
+                    case 400: {
+                        store.sendCodeStore.setErrorStyle();
+                        break;
+                    }
+                    case 404: {
+                        Electron.errors.showError('error', `User with email ${store.sendCodeStore.sendCodeInputValue} was not found`, 'User not found');
+                        break;
+                    }
                 }
             }}>
                 Send code

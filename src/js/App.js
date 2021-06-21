@@ -23,7 +23,7 @@ export default function App () {
                     <SendCode store={MainStore}/>
                 </Route>
                 <Route path="/login">
-                    <Login />
+                    <Login store={MainStore}/>
                 </Route>
                 <Route path="/register">
                     <Register store={MainStore.registerStore}/>
