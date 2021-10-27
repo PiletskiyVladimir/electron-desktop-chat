@@ -1,0 +1,36 @@
+.dialog-page {
+    height: 100%;
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.dialog-header {
+    display: block;
+    height: 15%;
+    width: 100%;
+}
+
+.dialog-bottom {
+    display: block;
+    height: 15%;
+    width: 100%;
+}
+
+.message-box {
+    height: 70vh;
+    box-sizing: border-box;
+    width: 100%;
+    max-height: 70vh;
+    display: block;
+    overflow-style: marquee-block;
+    overflow-y: scroll;
+}
+
+.message-box p {
+    word-wrap: break-word;
+}

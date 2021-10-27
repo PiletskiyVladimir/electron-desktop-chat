@@ -1,7 +1,8 @@
 const {ipcRenderer, contextBridge} = require('electron');
 
 let validIPCChannels = [
-    'error'
+    'error',
+    'fileSave'
 ]
 
 contextBridge.exposeInMainWorld('Electron', {
@@ -10,6 +11,11 @@ contextBridge.exposeInMainWorld('Electron', {
             if (validIPCChannels.includes(channel)) {
                 ipcRenderer.send(channel, message, title);
             }
+        }
+    },
+    fileSave: (channel, privateKey) => {
+        if (validIPCChannels.includes(channel)) {
+            ipcRenderer.send(channel, privateKey);
         }
     }
 })

@@ -20,7 +20,8 @@ class SendCodeStore {
     }
 
     setNormalStyle() {
-        this.classList = 'normal'
+        this.classList = 'normal';
+        this.placeholder = 'Enter your email to receive code';
     }
 
     async sendCode(email) {

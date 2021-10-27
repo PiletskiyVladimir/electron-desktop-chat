@@ -6,20 +6,28 @@ import {validate} from 'email-validator';
 
 const Register = observer(({store}) => {
     let history = useHistory();
-    return(
+    return (
         <>
             <input type="text" className={store.emailInputStyle} value={store.emailInputValue} onChange={(e) => {
                 store.changeInputValue(e.target.value, 'emailInputValue')
-            }}/>
+            }}
+                   placeholder={"Enter your email"}
+            />
             <input type="text" className={store.nameInputStyle} value={store.nameInputValue} onChange={(e) => {
                 store.changeInputValue(e.target.value, 'nameInputValue')
-            }}/>
+            }}
+                   placeholder={"Enter your name"}
+            />
             <input type="text" className={store.lastNameInputStyle} value={store.lastNameInputValue} onChange={(e) => {
                 store.changeInputValue(e.target.value, 'lastNameInputValue')
-            }}/>
+            }}
+                   placeholder={"Enter your lastName"}
+            />
             <input type="text" className={store.nicknameInputStyle} value={store.nicknameInputValue} onChange={(e) => {
                 store.changeInputValue(e.target.value, 'nicknameInputValue')
-            }}/>
+            }}
+                   placeholder={"Enter your nickname"}
+            />
 
             <button onClick={async () => {
                 let hasErrors = false;
@@ -46,7 +54,9 @@ const Register = observer(({store}) => {
 
                 if (hasErrors) return;
 
-                let response = await store.registerUser();
+                let [response, error] = await store.registerUser();
+
+                if (error) history.push('/error');
 
                 switch (response.status) {
                     case 200:
@@ -68,9 +78,11 @@ const Register = observer(({store}) => {
 
                         break;
                 }
-            }}>Register</button>
+            }}>Register
+            </button>
 
-            <p>Or you can authorize by sending code on your email if you already have account using <Link to="/send-code">this</Link> link</p>
+            <p>Or you can authorize by sending code on your email if you already have account using <Link
+                to="/send-code">this</Link> link</p>
         </>
     )
 })

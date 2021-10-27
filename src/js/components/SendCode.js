@@ -10,17 +10,19 @@ const SendCode = observer(({store}) => {
     return (
         <>
             <input
-                className={store.sendCodeStore.classList}
+                className={store.classList}
                 type="text"
-                placeholder={store.sendCodeStore.placeholder}
-                value={store.sendCodeStore.sendCodeInputValue}
+                placeholder={store.placeholder}
+                value={store.sendCodeInputValue}
                 onChange={(e) => {
-                    if (store.sendCodeStore.classList === 'warning') store.sendCodeStore.setNormalStyle();
-                    store.sendCodeStore.setSendCodeInput(e.target.value)
+                    if (store.classList === 'warning') store.setNormalStyle();
+                    store.setSendCodeInput(e.target.value)
                 }}
             />
             <button onClick={async () => {
-                let sent = await store.sendCodeStore.sendCode(store.sendCodeStore.sendCodeInputValue);
+                let [sent, error] = await store.sendCode(store.sendCodeInputValue);
+
+                if (error) history.push('/error');
 
                 switch (sent.status) {
                     case 200: {
@@ -28,11 +30,11 @@ const SendCode = observer(({store}) => {
                         break;
                     }
                     case 400: {
-                        store.sendCodeStore.setErrorStyle();
+                        store.setErrorStyle();
                         break;
                     }
                     case 404: {
-                        Electron.errors.showError('error', `User with email ${store.sendCodeStore.sendCodeInputValue} was not found`, 'User not found');
+                        Electron.errors.showError('error', `User with email ${store.sendCodeInputValue} was not found`, 'User not found');
                         break;
                     }
                 }

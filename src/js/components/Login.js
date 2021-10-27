@@ -1,10 +1,13 @@
 import React from "react";
 import {observer} from "mobx-react";
 
-import {getToken} from "../api/login";
+import {getTokenApi} from "../api/login";
 import MainStore from "../store/MainStore";
 
+import {useHistory} from 'react-router-dom';
+
 const Login = observer(({store}) => {
+    let history = useHistory();
     return (
         <>
             <input
@@ -18,9 +21,16 @@ const Login = observer(({store}) => {
             />
             <button
                 onClick={async () => {
-                    // TODO token handling, errors check
-
-                    console.log(await getToken(MainStore.sendCodeStore.sendCodeInputValue, store.loginStore.loginInputValue))
+                    let [token, error] = await getTokenApi(MainStore.sendCodeStore.sendCodeInputValue, store.loginStore.loginInputValue);
+                    if (error) history.push('/not-found');
+                    if (token.status !== 200) {
+                        store.loginStore.changeInputValue("");
+                        Electron.errors.showError('error', 'Invalid code', 'Authorization error')
+                    } else {
+                        localStorage.setItem('id', token.data.id);
+                        localStorage.setItem('token', token.data.token);
+                        history.push('/main-view');
+                    }
                 }}
             >
                 Confirm code
