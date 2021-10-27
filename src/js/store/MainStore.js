@@ -6,6 +6,8 @@ import LoginStore from "./LoginStore";
 import MainViewStore from "./MainViewStore";
 import DialogPageStore from "./DialogPageStore";
 
+import {getUserDataApi} from "../api/user";
+
 class Store {
     sendCodeStore;
     registerStore;
@@ -16,6 +18,8 @@ class Store {
     privateKey;
     publicKey;
 
+    userObj;
+
     constructor() {
         this.sendCodeStore      = new SendCodeStore();
         this.registerStore      = new RegisterStore();
@@ -24,8 +28,13 @@ class Store {
         this.dialogPageStore    = new DialogPageStore();
         this.privateKey         = null;
         this.publicKey          = null;
+        this.userObj            = null;
 
         makeAutoObservable(this);
+    }
+
+    setUser (user) {
+        this.userObj = user;
     }
 
     setPrivateKey(value) {

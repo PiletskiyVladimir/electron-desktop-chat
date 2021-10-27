@@ -5,3 +5,9 @@ export async function getDataApi () {
         token: localStorage.getItem('token')
     })
 }
+
+export async function getUserDataApi(id) {
+    return await axios({}, `${process.env.BACKEND_URL}/user/${id}`, "GET", {
+        token: localStorage.getItem('token')
+    })
+}

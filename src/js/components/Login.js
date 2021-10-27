@@ -21,7 +21,7 @@ const Login = observer(({store}) => {
             />
             <button
                 onClick={async () => {
-                    let [token, error] = await getTokenApi(MainStore.sendCodeStore.sendCodeInputValue, store.loginStore.loginInputValue);
+                    let [token, error] = await getTokenApi(store.sendCodeStore.sendCodeInputValue, store.loginStore.loginInputValue);
                     if (error) history.push('/not-found');
                     if (token.status !== 200) {
                         store.loginStore.changeInputValue("");
