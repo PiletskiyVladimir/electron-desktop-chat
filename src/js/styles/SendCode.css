@@ -1,0 +1,6 @@
+.send-code-input {
+    grid-column: auto / span 2;
+    width: 50%;
+    margin: auto;
+    box-sizing: border-box;
+}

@@ -13,6 +13,11 @@ class RegisterStore {
     lastNameInputStyle;
     nicknameInputStyle;
 
+    privateKey;
+    publicKey;
+
+    showPopup;
+
     constructor() {
         this.emailInputValue = '';
         this.nameInputValue = '';
@@ -23,6 +28,11 @@ class RegisterStore {
         this.nameInputStyle = 'normal';
         this.lastNameInputStyle = 'normal';
         this.nicknameInputStyle = 'normal';
+
+        this.publicKey = null;
+        this.privateKey = null;
+
+        this.showPopup = 'none';
 
         makeAutoObservable(this);
     }
@@ -49,8 +59,31 @@ class RegisterStore {
         this[field] = value;
     }
 
+    setPublicKey (value) {
+        this.publicKey = value;
+    }
+
+    setPrivateKey(value) {
+        this.privateKey = value;
+    }
+
+    clearAllInputs() {
+        this.emailInputValue = '';
+        this.nameInputValue = '';
+        this.lastNameInputValue = '';
+        this.nicknameInputValue = '';
+
+        this.emailInputStyle = 'normal';
+        this.nameInputStyle = 'normal';
+        this.lastNameInputStyle = 'normal';
+        this.nicknameInputStyle = 'normal';
+
+        this.publicKey = null;
+        this.privateKey = null;
+    }
+
     async registerUser() {
-        return await registerUserApi(this.emailInputValue, this.nameInputValue, this.lastNameInputValue, this.nicknameInputValue);
+        return await registerUserApi(this.emailInputValue, this.nameInputValue, this.lastNameInputValue, this.nicknameInputValue, this.publicKey);
     }
 }
 

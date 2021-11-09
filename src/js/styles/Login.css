@@ -1,0 +1,17 @@
+.upload-btn {
+    grid-column: auto / span 2;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #888888;
+}
+
+.email-login, .code-login {
+    grid-column: auto / span 2;
+    width: 100%;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+.login-btn {
+    width: 100%;
+}

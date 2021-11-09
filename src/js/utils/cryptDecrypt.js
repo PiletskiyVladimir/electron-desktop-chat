@@ -12,6 +12,12 @@ import {toJS} from "mobx";
     })()
 */
 
+function messageShortener(message) {
+    if (message.length >= 70) {
+        return message.substr(0, 70) + "...";
+    } else return message;
+}
+
 export function cryptMessage(message, publicKey) {
     let crypt = new JsEncrypt();
 
@@ -25,6 +31,25 @@ export function cryptMessage(message, publicKey) {
     }
 
     return encryptedArr;
+}
+
+export function decryptMessagesFromRoomObj(roomArr, privateKey) {
+    let crypt = new JsEncrypt();
+
+    crypt.setPrivateKey(privateKey);
+
+    for (let i = 0; i < roomArr.length; i++) {
+        if (!roomArr[i].lastMessage) continue;
+        let decryptedArr = [];
+
+        for (let elMes of roomArr[i].lastMessage.messageObj.message) {
+            decryptedArr.push(crypt.decrypt(elMes));
+        }
+
+        roomArr[i].lastMessage.messageObj.message = messageShortener(decryptedArr.join(''));
+    }
+
+    return roomArr;
 }
 
 export function decryptMessages(messageArr, privateKey) {

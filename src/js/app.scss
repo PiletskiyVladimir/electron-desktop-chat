@@ -2,16 +2,22 @@
     margin: 0;
     padding: 0;
     outline: 0;
-    font-family: Consolas, sans-serif;
+    font-family: Arial, sans-serif;
+    color: #FFFFFF;
+}
+
+body {
+    background-color: #262626;
+    width: 100%;
+    height: 100%;
+}
+
+.clear {
+    clear: both;
 }
 
 .normal {
     padding: 10px;
-}
-
-.warning {
-    padding: 10px;
-    border: 1px solid red;
 }
 
 ::-webkit-scrollbar {
@@ -28,4 +34,106 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+input {
+    color: white;
+    background-color: #555555;
+}
+
+::placeholder {
+    color: #9c9c9c;
+}
+
+.block-with-inputs {
+    font-size: 16px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    column-gap: 20px;
+    row-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.block-with-inputs input {
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #262626;
+}
+
+.block-with-inputs p {
+    grid-column: auto / span 2;
+    text-align: center;
+    line-height: 20px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.link {
+    color: #0052ff;
+}
+
+.btn-reg-login {
+    grid-column: auto / span 2;
+    margin: auto;
+    padding: 10px 0;
+    width: 50%;
+    background-color: #0052ff;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+}
+
+.over {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #555555;
+    border: 1px solid #888888;
+    width: 350px;
+    box-sizing: border-box;
+    padding: 10px;
+    opacity: 1;
+    z-index: 3;
+    border-radius: 10px;
+}
+
+.popup button {
+    background-color: #0052ff;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    margin: 10px auto;
+    float: right;
+    padding: 10px 35px;
+}
+
+.over-cover {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: 0.7;
+}
+
+.warning {
+    border: 1px solid red !important;
 }

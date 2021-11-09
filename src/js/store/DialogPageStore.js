@@ -1,20 +1,19 @@
 import {makeAutoObservable} from "mobx";
-import DialogInputStore from './DialogInputStore';
 import {decryptMessages} from "../utils/cryptDecrypt";
 
 class DialogPageStore {
     roomId;
     messages;
     roomObj;
-    dialogInputStore;
     privateKey;
     publicKey;
+    inputValue;
 
     constructor() {
         this.roomId = null;
         this.messages = [];
         this.roomObj = null;
-        this.dialogInputStore = new DialogInputStore();
+        this.inputValue = '';
 
         makeAutoObservable(this);
     }
@@ -40,6 +39,10 @@ class DialogPageStore {
         this.roomId = null;
         this.messages = [];
         this.roomObj = null;
+    }
+
+    setInputValue (value) {
+        this.inputValue = value;
     }
 }
 

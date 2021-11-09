@@ -6,10 +6,18 @@ class SendCodeStore {
     placeholder;
     sendCodeInputValue;
 
+    popupText;
+    popupShow;
+    behaviour;
+
     constructor() {
         this.classList = 'normal';
         this.placeholder = 'Enter your email to receive code';
         this.sendCodeInputValue = '';
+
+        this.popupText = '';
+        this.popupShow = 'none';
+        this.behaviour = () => {this.popupShow = 'none'}
 
         makeAutoObservable(this);
     }

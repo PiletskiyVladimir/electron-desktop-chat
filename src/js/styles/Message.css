@@ -21,11 +21,13 @@
 .my-message {
     margin-right: 1%;
     margin-left: auto;
+    background-color: #0052ff;
 }
 
 .inner-message {
     margin-left: 1%;
     margin-right: auto;
+    background-color: #555555;
 }
 
 .message-time {

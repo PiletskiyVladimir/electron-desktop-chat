@@ -1,0 +1,134 @@
+.main-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.main-view-profile {
+    float: left;
+    height: 100%;
+    width: 30%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.main-view-rooms {
+    float: left;
+    height: 100%;
+    width: 70%;
+    box-sizing: border-box;
+}
+
+.avatar {
+    width: 125px;
+    height: 125px;
+    display: block;
+    margin: 50px auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 100%;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.main-view-user-name {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.exit-btn {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    background-size: cover;
+}
+
+.main-view-profile-options {
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.main-view-profile-options:hover {
+    color: #0052ff;
+}
+
+.user-search-input {
+    width: 95%;
+    margin: 10px auto;
+    box-sizing: border-box;
+    display: block;
+    outline: none;
+    border-radius: 15px;
+    padding: 13px;
+    border: none;
+}
+
+.user-tile {
+    display: flex;
+    width: 95%;
+    box-sizing: border-box;
+    padding: 10px;
+    height: 70px;
+    margin: auto;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.user-tile p {
+    display: block;
+    margin: auto 0 auto 10px;
+    font-size: 18px;
+}
+
+.user-tile-avatar {
+    height: 50px;
+    width: 50px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 100%;
+    float: left;
+}
+
+.roomClass {
+    height: 90px;
+    display: flex;
+    width: 95%;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.roomClass-avatar {
+    height: 70px;
+    width: 70px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 100%;
+    float: left;
+}
+
+.roomClass-info {
+    position: relative;
+    flex: 1;
+    margin: auto 0 auto 10px;
+}
+
+.room-user-name {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.room-last-message-time {
+    position: absolute;
+    right: 0;
+    top: 0;
+}

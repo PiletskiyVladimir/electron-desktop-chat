@@ -15,6 +15,7 @@
     "axios": "^0.21.4",
     "babel-loader": "^8.2.2",
     "crypto-js": "^4.1.1",
+    "cryptojs": "^2.5.3",
     "css-loader": "^5.2.6",
     "dotenv-webpack": "^7.0.3",
     "electron": "^13.5.2",

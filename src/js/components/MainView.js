@@ -7,7 +7,12 @@ import JsEncrypt from 'jsencrypt';
 import RoomObj from "./RoomObj";
 
 import '../styles/MainView.css';
+
 import {getUserDataApi} from "../api/user";
+import MainViewProfile from "./MainViewProfile";
+import MainViewRooms from "./MainViewRooms";
+
+import {decryptMessagesFromRoomObj} from "../utils/cryptDecrypt";
 
 let crypt = new JsEncrypt();
 
@@ -41,28 +46,20 @@ const MainView = observer(({store}) => {
             }
         }
 
-        store.mainViewStore.setRooms(rooms.data.data);
+        let privateKey = await Axios.get('./build/piletskiyPrivate.txt')
 
-        let [privateKey, publicKey] = await Promise.all([
-            Axios.get('./build/piletskiyPrivate.txt'),
-            Axios.get('./build/piletskiyPublic.txt')
-        ])
-
-        store.setPrivateKey(privateKey.data);
-        store.setPublicKey(publicKey.data);
+        store.setRoomAndUserAndKeys(user.data, privateKey.data, user.data.publicKey, rooms.data.data);
 
         crypt.setPublicKey(store.publicKey);
         crypt.setPrivateKey(store.privateKey);
     }, []);
 
     return (
-        <>
-            {
-                store.mainViewStore.getRooms().map(el => {
-                    return <RoomObj store={el}/>
-                })
-            }
-        </>
+        <div className="main-view">
+            <MainViewProfile    store={store} />
+            <MainViewRooms      store={store} />
+            <div className="clear"></div>
+        </div>
     )
 });
 

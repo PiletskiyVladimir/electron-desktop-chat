@@ -10,22 +10,25 @@
 }
 
 .dialog-header {
+    box-sizing: border-box;
     display: block;
-    height: 15%;
-    width: 100%;
+    height: 10vh;
+    width: 100vw;
 }
 
 .dialog-bottom {
-    display: block;
-    height: 15%;
-    width: 100%;
+    display: flex;
+    height: 10vh;
+    width: 100vw;
+    box-sizing: border-box;
+    justify-content: center;
+    padding-top: 15px;
 }
 
 .message-box {
-    height: 70vh;
+    height: 80vh;
     box-sizing: border-box;
-    width: 100%;
-    max-height: 70vh;
+    width: 100vw;
     display: block;
     overflow-style: marquee-block;
     overflow-y: scroll;
@@ -33,4 +36,69 @@
 
 .message-box p {
     word-wrap: break-word;
+}
+
+.dialog-header-left {
+    float: left;
+    width: 5%;
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
+}
+
+.dialog-header-left img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+}
+
+.dialog-header-right {
+    float: left;
+    box-sizing: border-box;
+    width: 95%;
+    height: 100%;
+    padding: 5px;
+    position: relative;
+    display: flex;
+}
+
+.dialog-header-avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 100%;
+    margin: 0 10px 0 0;
+}
+
+.message-input {
+    outline: 0;
+    box-sizing: border-box;
+    height: 40px;
+    width: 80%;
+    display: block;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.send-message-btn {
+    border-radius: 100%;
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-color: #0052ff;
+    cursor: pointer;
+    position: relative;
+    margin-left: 20px;
+}
+
+.send-message-btn img {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
 }

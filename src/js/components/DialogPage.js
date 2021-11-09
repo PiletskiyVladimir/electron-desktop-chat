@@ -1,12 +1,8 @@
 import React, {useEffect} from "react";
-import {Link, useHistory, useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {observer} from "mobx-react";
-import axios from "../utils/axios";
 import {getRoomDetailApi} from '../api/room';
-import {createMessageApi, getMessagesApi} from '../api/message';
-import {cryptMessage} from "../utils/cryptDecrypt";
-
-import MessageComp from "./MessageComp";
+import {getMessagesApi} from '../api/message';
 
 import '../styles/DialogPage.css';
 import '../styles/Message.css';
@@ -14,6 +10,7 @@ import '../styles/Message.css';
 import DialogHeader from './DialogHeader';
 import DialogBottom from "./DialogBottom";
 import DialogMessageBox from "./DialogMessageBox";
+import {toJS} from "mobx";
 
 
 const DialogPage = observer(({store}) => {
@@ -44,16 +41,6 @@ const DialogPage = observer(({store}) => {
 
         store.setMessages(messages.data);
     }, []);
-
-    // TODO
-
-    /*
-        вынести верхний блок в отдельный компонент
-        вынести центральний блок в отдельный компонент
-        вынести нижний блок в отдельный компонент
-
-        при этом всем пусть у них и дальше будет общее хранилище, хотя у верхнего блока его может и не быть, подумать как реализовать
-     */
 
     return <div className="dialog-page">
         <DialogHeader store={store}/>

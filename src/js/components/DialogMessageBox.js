@@ -12,7 +12,7 @@ const DialogMessageBox = observer(({store}) => {
     return <div className="message-box">
         {
             store.messages.map(el => {
-                return <MessageComp messageObj={el} />
+                return <MessageComp messageObj={el} key={el.id}/>
             })
         }
 
