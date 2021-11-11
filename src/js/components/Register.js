@@ -41,27 +41,6 @@ const Register = observer(({store}) => {
                        placeholder={"Enter your nickname"}
                 />
 
-                {/*<button className="upload-btn" onClick={() => publicRef.current.click()}>Upload public key</button>*/}
-                {/*<button className="upload-btn" onClick={() => privateRef.current.click()}>Upload private key</button>*/}
-
-                {/*<input*/}
-                {/*    id='file'*/}
-                {/*    ref={publicRef}*/}
-                {/*    style={{display: 'none'}}*/}
-                {/*    type="file"*/}
-                {/*    accept=".pem, .txt"*/}
-                {/*    onChange={(e) => fileOnChange(e, 'public') }*/}
-                {/*/>*/}
-
-                {/*<input*/}
-                {/*    id='file'*/}
-                {/*    ref={privateRef}*/}
-                {/*    style={{display: 'none'}}*/}
-                {/*    type="file"*/}
-                {/*    accept=".pem, .txt"*/}
-                {/*    onChange={(e) => fileOnChange(e, 'private') }*/}
-                {/*/>*/}
-
                 <button className="btn-reg-login" onClick={async () => {
                     let hasErrors = false;
 
@@ -101,7 +80,7 @@ const Register = observer(({store}) => {
                         console.log(error);
                         switch (error.status) {
                             case 409:
-                                switch (response.errors.field) {
+                                switch (error.errors.field) {
                                     case 'nickname':
                                         store.changeInputStyle('warning', 'nicknameInputStyle');
                                         Electron.errors.showError('error', 'User with such nickname already exist!', 'Registration error');
@@ -119,7 +98,7 @@ const Register = observer(({store}) => {
                     }
 
                     // if (response) history.push('/login');
-                    store.showPopup = 'block';
+                    if (response) store.showPopup = 'block';
                 }}>Register
                 </button>
 

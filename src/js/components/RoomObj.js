@@ -1,5 +1,6 @@
 import {useHistory} from "react-router-dom";
 import React from 'react';
+import socket from "../socket";
 
 export default function RoomObj({room}) {
     let history = useHistory();
@@ -11,6 +12,7 @@ export default function RoomObj({room}) {
             className="roomClass"
             onClick={
                 () => {
+                    socket.emit('joinRoom', `${room.id}${localStorage.getItem('id')}`);
                     history.push(`/room/${room.id}`)
                 }
             }

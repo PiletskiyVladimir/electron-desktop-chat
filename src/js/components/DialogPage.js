@@ -12,12 +12,21 @@ import DialogBottom from "./DialogBottom";
 import DialogMessageBox from "./DialogMessageBox";
 import {toJS} from "mobx";
 
+import socket from '../socket';
+
+import {decryptMessages} from "../utils/cryptDecrypt";
+
 
 const DialogPage = observer(({store}) => {
     let history = useHistory();
     let {id} = useParams();
 
     useEffect(async () => {
+        socket.on('new-room-message', (data) => {
+            data = JSON.parse(data);
+            store.pushMessage(data);
+        });
+
         let [apiDetail, apiDetailError] = await getRoomDetailApi(id);
 
         if (apiDetailError) {
@@ -40,6 +49,12 @@ const DialogPage = observer(({store}) => {
         if (messagesError) history.push('/error');
 
         store.setMessages(messages.data);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.keyCode === 27) {
+                history.goBack();
+            }
+        });
     }, []);
 
     return <div className="dialog-page">

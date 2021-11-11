@@ -30,7 +30,6 @@
     box-sizing: border-box;
     width: 100vw;
     display: block;
-    overflow-style: marquee-block;
     overflow-y: scroll;
 }
 
@@ -53,6 +52,7 @@
     transform: translate(-50%, -50%);
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
 .dialog-header-right {
@@ -101,4 +101,20 @@
     top: 50%;
     left: 55%;
     transform: translate(-50%, -50%);
+}
+
+.dialog-header-user-info-block {
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.dhuibf {
+    font-size: 18px;
+}
+
+.dhuibs {
+    font-size: 14px;
 }

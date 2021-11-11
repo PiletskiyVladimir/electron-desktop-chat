@@ -12,6 +12,8 @@ import {getUserDataApi} from "../api/user";
 import MainViewProfile from "./MainViewProfile";
 import MainViewRooms from "./MainViewRooms";
 
+import socket from "../socket";
+
 import {decryptMessagesFromRoomObj} from "../utils/cryptDecrypt";
 
 let crypt = new JsEncrypt();
@@ -21,6 +23,25 @@ const MainView = observer(({store}) => {
 
     useEffect(async () => {
         let [user, userError] = await getUserDataApi(localStorage.getItem('id'));
+
+        socket.on('new-message', (data) => {
+            data = JSON.parse(data);
+            let updatedRooms = [];
+            for (let i = 0; i < store.rooms.length; i++) {
+                let obj = JSON.parse(JSON.stringify(store.rooms[i]));
+                if (obj.id === data.room) {
+                    obj.lastMessage = data;
+                }
+                updatedRooms.push(obj);
+            }
+
+            store.setRooms(updatedRooms);
+        })
+
+        socket.on('new-room', (data) => {
+            console.log(data);
+            store.updateRooms(data);
+        })
 
         if (userError) {
             switch (userError.status) {
@@ -46,7 +67,7 @@ const MainView = observer(({store}) => {
             }
         }
 
-        let privateKey = await Axios.get('./build/piletskiyPrivate.txt')
+        let privateKey = await Axios.get('./private.pem');
 
         store.setRoomAndUserAndKeys(user.data, privateKey.data, user.data.publicKey, rooms.data.data);
 
@@ -58,7 +79,8 @@ const MainView = observer(({store}) => {
         <div className="main-view">
             <MainViewProfile    store={store} />
             <MainViewRooms      store={store} />
-            <div className="clear"></div>
+            <div className="clear">
+            </div>
         </div>
     )
 });

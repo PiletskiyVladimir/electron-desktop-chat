@@ -47,12 +47,12 @@ class Store {
     }
 
     setRoomAndUserAndKeys(user, privateKey, publicKey, rooms) {
-        this.setRooms(decryptMessagesFromRoomObj(rooms, privateKey));
         this.userObj = user;
         this.privateKey = privateKey;
         this.dialogPageStore.privateKey = privateKey;
         this.publicKey = publicKey;
         this.dialogPageStore.publicKey = publicKey;
+        this.setRooms(rooms);
     }
 
     setUser (user) {
@@ -82,7 +82,7 @@ class Store {
     }
 
     setRooms (rooms) {
-        this.rooms = rooms;
+        this.rooms = decryptMessagesFromRoomObj(rooms, this.privateKey);
     }
 
     updateRooms (room) {

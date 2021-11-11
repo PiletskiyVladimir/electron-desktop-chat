@@ -12,7 +12,6 @@ async function sendMessage(store) {
         };
 
         for (let user of store.roomObj.users) {
-            console.log(toJS(user));
             messageCreateObj.messageObj[user.id] = {message: cryptMessage(store.inputValue, user.publicKey)};
         }
 
@@ -20,7 +19,7 @@ async function sendMessage(store) {
 
         if (createdMessageError) history.push('/error');
 
-        store.pushMessage(createdMessage.data);
+        // store.pushMessage(createdMessage.data);
         store.setInputValue("");
     }
 }
