@@ -1,11 +1,9 @@
 import React from "react";
 import {useHistory} from "react-router-dom";
 import {getOrCreateRoom} from "../api/mainView";
-import {toJS} from "mobx";
 import socket from "../socket";
 
-export default function UserTile({user}) {
-    console.log(toJS(user));
+export default function UserTile({user, store}) {
     let history = useHistory();
     let imageStyleObj = {
         backgroundImage: user.avatar ? "url(" + process.env.BACKEND_URL + "/" + user.avatar + ")" : "url('./build/assets/defaultAvatar.png')"
@@ -17,6 +15,7 @@ export default function UserTile({user}) {
             async (e) => {
                 let [room, roomError] = await getOrCreateRoom(user.id);
                 socket.emit('joinRoom', `${room.data.id}${localStorage.getItem('id')}`);
+                store.changeSearchPeopleValue("");
                 history.push(`/room/${room.data.id}`);
             }
         }

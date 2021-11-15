@@ -12,8 +12,7 @@ const DialogHeader = observer(({store}) => {
     return <div className="dialog-header">
         <div className="dialog-header-left">
             <img src="./build/assets/arrowback.png" alt="HELP" onClick={() => {
-                socket.emit('leaveRoom', `${store.roomObj.id}${localStorage.getItem('id')}`);
-                socket.off('new-room-message');
+                socket.emit('leaveRoom', `${store.roomObj?.id}${localStorage.getItem('id')}`);
                 store.clearDialogPage();
                 history.goBack();
             }}/>

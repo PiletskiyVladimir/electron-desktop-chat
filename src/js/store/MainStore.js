@@ -85,8 +85,16 @@ class Store {
         this.rooms = decryptMessagesFromRoomObj(rooms, this.privateKey);
     }
 
+    setRoomsWithoutDecryption(rooms) {
+        this.rooms = rooms;
+    }
+
+    decryptOneRoom(roomObj) {
+        return decryptMessagesFromRoomObj([roomObj], this.privateKey)[0];
+    }
+
     updateRooms (room) {
-        this.rooms = [...this.rooms, room];
+        this.rooms = [room, ...this.rooms];
     }
 }
 

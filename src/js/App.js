@@ -46,9 +46,6 @@ export default function App () {
                 <Route path="/">
                     <LoadPage />
                 </Route>
-                <Route path="/people-search">
-
-                </Route>
             </Switch>
         </Router>
     )

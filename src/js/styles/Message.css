@@ -34,6 +34,12 @@
     position: absolute;
     bottom: 5px;
     right: 10px;
-    color: #000;
+    color: #fff;
     font-size: 10px;
+}
+
+.message-obj {
+    position: relative;
+    display: block;
+    margin: auto;
 }

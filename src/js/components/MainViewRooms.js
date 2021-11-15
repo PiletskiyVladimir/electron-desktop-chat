@@ -18,7 +18,7 @@ const MainViewRooms = observer(({store}) => {
                 })
                 :
                 store.foundedUsers.map(el => {
-                    return <UserTile user={el} key={el.id}/>
+                    return <UserTile user={el} key={el.id} store={store}/>
                 })
         }
     </div>

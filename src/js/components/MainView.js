@@ -22,24 +22,32 @@ const MainView = observer(({store}) => {
     let history = useHistory();
 
     useEffect(async () => {
+        console.log('effect');
         let [user, userError] = await getUserDataApi(localStorage.getItem('id'));
+
+        socket.off('new-message');
+        socket.off('new-room-message');
 
         socket.on('new-message', (data) => {
             data = JSON.parse(data);
             let updatedRooms = [];
+            let neededRoom = {};
             for (let i = 0; i < store.rooms.length; i++) {
                 let obj = JSON.parse(JSON.stringify(store.rooms[i]));
                 if (obj.id === data.room) {
                     obj.lastMessage = data;
+                    neededRoom = store.decryptOneRoom(obj);
+                } else {
+                    updatedRooms.push(obj);
                 }
-                updatedRooms.push(obj);
             }
 
-            store.setRooms(updatedRooms);
+            updatedRooms = [neededRoom, ...updatedRooms];
+
+            store.setRoomsWithoutDecryption(updatedRooms);
         })
 
         socket.on('new-room', (data) => {
-            console.log(data);
             store.updateRooms(data);
         })
 

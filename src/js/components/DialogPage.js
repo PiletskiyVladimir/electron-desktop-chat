@@ -50,11 +50,16 @@ const DialogPage = observer(({store}) => {
 
         store.setMessages(messages.data);
 
-        document.addEventListener('keydown', (event) => {
+        function listener(event) {
             if (event.keyCode === 27) {
+                socket.emit('leaveRoom', `${store.roomObj?.id}${localStorage.getItem('id')}`);
+                store.clearDialogPage();
                 history.goBack();
+                document.removeEventListener('keydown', listener);
             }
-        });
+        }
+
+        document.addEventListener('keydown', listener);
     }, []);
 
     return <div className="dialog-page">

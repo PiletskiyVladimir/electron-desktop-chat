@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {observer} from "mobx-react";
 import {toJS} from "mobx";
-import axios from "axios";
+import axios from "../utils/axios";
 import {useHistory} from "react-router-dom";
 
 const MainViewProfile = observer(({store}) => {
@@ -39,6 +39,9 @@ const MainViewProfile = observer(({store}) => {
                 async (event) => {
                     event.stopPropagation();
                     event.preventDefault();
+
+                    if (!event.target.files) return;
+
                     let file = event.target.files[0];
 
                     let formData = new FormData();
@@ -47,21 +50,18 @@ const MainViewProfile = observer(({store}) => {
 
                     let saveImage;
 
-                    try {
-                        let request = await axios({
-                            method: "PATCH",
-                            url: `${process.env.BACKEND_URL}/user/${store.userObj?.id}/image`,
-                            headers: {
-                                token: localStorage.getItem('token'),
-                                "Content-Type": "multipart/form-data"
-                            },
-                            data: formData
+                    let [request, requestError] = await axios(
+                        formData,
+                        `${process.env.BACKEND_URL}/user/${store.userObj?.id}/image`,
+                        "PATCH",
+                        {
+                            token: localStorage.getItem('token'),
+                            "Content-Type": "multipart/form-data"
                         });
 
-                        saveImage = request.data;
-                    } catch (e) {
-                        saveImage = null;
-                    }
+                    if (requestError) saveImage = null;
+
+                    saveImage = request.data;
 
                     if (saveImage) {
                         store.updateAvatar(saveImage.avatar);
@@ -84,14 +84,29 @@ const MainViewProfile = observer(({store}) => {
             {store.userObj?.name + " " + store.userObj?.lastName}
         </p>
 
-        <p className="main-view-profile-options">
+        <p
+            className="main-view-profile-options"
+        >
             Profile settings
         </p>
 
-        <p className="main-view-profile-options">
+        <p
+            className="main-view-profile-options"
+            onClick={
+                async event => {
+                    let [deleteImage, deleteImageError] = await axios({}, `${process.env.BACKEND_URL}/user/${localStorage.getItem('id')}/image`, 'DELETE', {token: localStorage.getItem('token')});
+
+                    if (deleteImageError) return history.push('/error');
+
+                    store.userObj.avatar = null;
+                }
+            }
+        >
             Delete profile image
         </p>
-        <p className="main-view-profile-options">
+        <p
+            className="main-view-profile-options"
+        >
             Delete profile
         </p>
     </div>
