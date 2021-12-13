@@ -7,6 +7,7 @@ import MainStore from "../store/MainStore";
 import {useHistory} from 'react-router-dom';
 import '../styles/Login.css';
 import Popup from "./Popup";
+import {toJS} from "mobx";
 
 const Login = observer(({store}) => {
     let mailInputValue = store.sendCodeStore.sendCodeInputValue || store.registerStore.emailInputValue;
@@ -64,6 +65,10 @@ const Login = observer(({store}) => {
                         if (store.loginStore.loginInputValue.length === 0) {
                             store.loginStore.popupText = 'Enter code from your email';
                             store.loginStore.popupShow = 'block';
+                            store.loginStore.behaviour = () => {
+                                store.loginStore.popupShow = 'none';
+                            }
+                            return;
                         }
 
                         if (!mailInputValue) {
@@ -72,12 +77,14 @@ const Login = observer(({store}) => {
                                 history.push('/send-code')
                             };
                             store.loginStore.popupShow = 'block';
+                            return;
                         }
 
                         let [token, error] = await getTokenApi(mailInputValue, store.loginStore.loginInputValue);
                         if (error) {
-                            store.loginStore.popupText = error;
+                            store.loginStore.popupText = 'Wrong code entered';
                             store.loginStore.popupShow = 'block';
+                            return;
                         }
                         if (token.status !== 200) {
                             store.loginStore.changeInputValue("");

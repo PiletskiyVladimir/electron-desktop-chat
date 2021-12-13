@@ -4,6 +4,10 @@ import {toJS} from "mobx";
 import axios from "../utils/axios";
 import {useHistory} from "react-router-dom";
 
+function getFileExtension (filename) {
+    return filename.substring(filename.lastIndexOf('.')+1, filename.length) || filename;
+}
+
 const MainViewProfile = observer(({store}) => {
     let history = useHistory();
     let styleObj = {
@@ -35,14 +39,22 @@ const MainViewProfile = observer(({store}) => {
             id='file'
             ref={inputFile}
             style={{display: 'none'}}
+            accept=".png, .jpg"
             onChange={
                 async (event) => {
                     event.stopPropagation();
                     event.preventDefault();
 
+                    console.log(event.target.files);
+
                     if (!event.target.files) return;
 
                     let file = event.target.files[0];
+
+                    if (getFileExtension(file.name) !== 'png' && getFileExtension(file.name) !== 'jpeg' && getFileExtension(file.name) !== 'jpg') {
+                        console.log('wrong format');
+                        return;
+                    }
 
                     let formData = new FormData();
 
@@ -59,7 +71,10 @@ const MainViewProfile = observer(({store}) => {
                             "Content-Type": "multipart/form-data"
                         });
 
-                    if (requestError) saveImage = null;
+                    if (requestError) {
+                        console.log(requestError);
+                        return;
+                    }
 
                     saveImage = request.data;
 
